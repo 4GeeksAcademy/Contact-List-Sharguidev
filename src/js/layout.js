@@ -7,6 +7,7 @@ import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 import CreateContactForm from "./component/createContactForm.jsx";
+import toast, { Toaster } from 'react-hot-toast';
 
 import { Navbar } from "./component/navbar.jsx";
 import { Footer } from "./component/footer";
@@ -31,6 +32,7 @@ const Layout = () => {
 					</Routes>
 					<Footer />
 				</ScrollToTop>
+				<Toaster />
 			</BrowserRouter>
 		</div>
 	);
