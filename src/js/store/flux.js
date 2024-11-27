@@ -1,10 +1,10 @@
-import { name } from "file-loader";
+
 import toast, { Toaster } from 'react-hot-toast';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			contact: null,
+
 			contactList: [],
 			demo: [
 				{
@@ -47,11 +47,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteContact: async (id) => {
-				const response = fetch(`https://playground.4geeks.com/contact/docs/${id}`, {
+				const response = fetch(`https://playground.4geeks.com/contact/agendas/gobando/contacts/${id}`, {
 					method: "DELETE"
 				});
 
-				const data = await response.json();
+
 				if (response.ok) {
 					const store = getStore();
 					const updatedContactList = store.contactList.filter(contact => contact.id !== id);

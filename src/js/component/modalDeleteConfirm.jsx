@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 
 const ModalDeleteConfirm = () => {
 
     const [show, setShow] = useState(false);
+    const { actions, store } = useContext(Context);
+
+
+    const eliminarContacto = ({ contacts }) => {
+
+        actions.deleteContact(contacts.id)
+    }
 
     return (
         <>
@@ -23,7 +31,11 @@ const ModalDeleteConfirm = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-outline-info" data-bs-dismiss="modal" onClick={() => setShow(false)}>Close</button>
-                            <button type="button" className="btn btn-outline-danger">Delete</button>
+                            <button type="button" className="btn btn-outline-danger" onClick={() => {
+                                setShow(false);
+                                eliminarContacto;
+                            }}>Delete</button>
+
                         </div>
                     </div>
                 </div>
