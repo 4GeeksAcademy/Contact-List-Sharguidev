@@ -1,3 +1,6 @@
 /* 
     General Styles
 */
+.container {
+    height: fit-content;
+}
