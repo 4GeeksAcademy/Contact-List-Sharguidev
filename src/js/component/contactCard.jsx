@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import ModalDeleteConfirm from "./modalDeleteConfirm.jsx";
+
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+
 
 
 export const ContactCard = () => {
@@ -19,7 +20,7 @@ export const ContactCard = () => {
 
         <div className="card-container d-flex justify-content-center">
 
-            <div className="card mb-3" style={{ maxWidth: "700px" }} key={contact.id}>
+            <div className="card mb-3" style={{ maxWidth: "500px" }} key={contact.id}>
                 <div className="row g-0">
                     <div className="col-md-4">
                         <img src="https://i.pravatar.cc/250" style={{ width: "200px" }} className="img-fluid rounded-circle mt-3 ms-2" alt="PacoelPaco" />
@@ -29,7 +30,7 @@ export const ContactCard = () => {
                             <div className="d-flex">
                                 <h5 className="card-text">{contact.name}</h5>
                                 <div className="ms-auto ">
-                                    <div className="btn btn-outline-success me-2"><Link to="/createContactForm" className="text-white text-decoration-none">✏️</Link></div>
+                                    <div className="btn btn-outline-success me-2"><Link to={`/editContactForm/${contact.id}`} className="text-white text-decoration-none">✏️</Link></div>
 
                                     {/* Modal button trigger */}
                                     <button type="button" className="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target={"#delete-contact" + contact.id} onClick={() => setShow(true)}>

@@ -22,32 +22,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			// Use getActions to call a function within a fuction
 
-			//Cambiar el enlace de la api
-			createContact: async (name, phone, email, address) => {
-				const response = fetch("https://playground.4geeks.com/contact/docs#/", {
+			insertContactToList: (contact) => {
+				const store = getStore();
+				const updatedContactList = [...store.contactList, contact];
+				setStore({ contactList: updatedContactList });
+			},
+
+			createContact: async (payload) => {
+				fetch("https://playground.4geeks.com/contact/agendas/gobando/contacts", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
 					},
-					body: JSON.stringify({
-						"name": name,
-						"phone": phone,
-						"email": email,
-						"address": address
-					})
-				});
+					body: JSON.stringify(
+						payload
+					)
+				})
 
-				const data = await response.json();
-				if (response.ok) {
-					setStore({ contact: data.contact });
-					toast.success("Contact created successfully 🎉");
-				} else {
-					toast.error("Error creating contact ⛔");
-				}
+					.then(response => response.json())
+					.then(data => {
+						console.log(data);
+						const actions = getActions();
+						actions.insertContactToList(data);
+						toast.success("Contact created successfully 🎉");
+					})
+
+
 			},
 
 			deleteContact: async (id) => {
-				const response = fetch(`https://playground.4geeks.com/contact/agendas/gobando/contacts/${id}`, {
+				const response = await fetch(`https://playground.4geeks.com/contact/agendas/gobando/contacts/${id}`, {
 					method: "DELETE"
 				});
 
@@ -72,6 +76,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await response.json();
 				console.log(data);
 				setStore({ contactList: data.contacts });
+			},
+
+			updateContact: async (payload, id) => {
+
+				const response = await fetch(`https://playground.4geeks.com/contact/agendas/gobando/contacts/${id}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(payload)
+
+				});
+				const data = await response.json();
+				console.log(data);
+				const updatedContactList = getStore().contactList.map(contact => {
+					if (contact.id === id) {
+						return data.contact;
+					}
+					return contact;
+				});
+				setStore({ contactList: updatedContactList });
+				toast.success("Contact updated successfully 🎉", {
+				});
 			},
 
 

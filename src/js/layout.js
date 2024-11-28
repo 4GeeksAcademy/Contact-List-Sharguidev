@@ -12,6 +12,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Navbar } from "./component/navbar.jsx";
 import { Footer } from "./component/footer";
 
+import { EditContactForm } from "./component/editContactForm.jsx";
+
 //create your first component
 const Layout = () => {
 	//the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -29,6 +31,7 @@ const Layout = () => {
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
 						<Route path="/createContactForm" element={<CreateContactForm />} />
+						<Route path="/editContactForm/:id" element={<EditContactForm />} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>
